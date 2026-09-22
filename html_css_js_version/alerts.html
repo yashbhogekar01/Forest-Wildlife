@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Incidents & Alarms - Pench Rakshak</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body style="padding: 24px;">
+  <div class="glass-header" style="padding: 16px 24px; border-radius: 12px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center;">
+    <h1 style="color: #fff; font-size: 22px;">🚨 Village Proximity Alarms & Incident Logs</h1>
+    <a href="index.html" class="btn btn-primary">← Back to Main System</a>
+  </div>
+
+  <div class="glass-panel" style="padding: 16px;">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Alert ID</th>
+          <th>Tiger Name</th>
+          <th>Risk Level</th>
+          <th>Proximity Zone</th>
+          <th>Status</th>
+          <th>Detected</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="alerts-table-body"></tbody>
+    </table>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

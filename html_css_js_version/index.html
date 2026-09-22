@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pench Rakshak - Tiger Reserve Command & Monitoring System</title>
+  
+  <!-- CSS Styles -->
+  <link rel="stylesheet" href="styles.css">
+  
+  <!-- Leaflet Maps CSS & JS (CDN) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Chart.js (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- Top Glass Header -->
+  <header class="glass-header">
+    <div class="logo-container">
+      <div class="logo-icon">PR</div>
+      <div>
+        <h1 style="font-size: 18px; color: #fff; line-height: 1.2;">PENCH RAKSHAK</h1>
+        <p style="font-size: 11px; color: #34d399; letter-spacing: 0.5px;">COMMAND & CAMERA TRAP MONITORING SYSTEM</p>
+      </div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 16px;">
+      <div style="text-align: right; display: flex; flex-direction: column;">
+        <span style="font-size: 13px; font-weight: 600; color: #fff;">Dr. Rajesh Sharma (RFO)</span>
+        <span style="font-size: 11px; color: #94a3b8;">Pench Tiger Reserve - Maharashtra</span>
+      </div>
+      <button class="btn btn-outline" onclick="openAiAssistant()">Maya AI Assistant</button>
+      <button class="btn btn-primary" onclick="openUploadModal()">+ Upload Image</button>
+    </div>
+  </header>
+
+  <!-- Application Layout Body -->
+  <div class="app-container">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <a class="nav-item active" data-tab="dashboard">
+        📊 Dashboard Overview
+      </a>
+      <a class="nav-item" data-tab="captures">
+        📷 Camera Trap Captures
+      </a>
+      <a class="nav-item" data-tab="tigers">
+        🐅 Tiger Biometric Database
+      </a>
+      <a class="nav-item" data-tab="occupancy">
+        📈 Occupancy Analytics
+      </a>
+      <a class="nav-item" data-tab="deviation">
+        ⚠️ Deviation Alerts <span class="nav-badge">2</span>
+      </a>
+      <a class="nav-item" data-tab="map">
+        🗺️ Movement & GIS Map
+      </a>
+      <a class="nav-item" data-tab="alerts">
+        🚨 Incidents & Alarms
+      </a>
+      <a class="nav-item" data-tab="reports">
+        📄 Reports & Exports
+      </a>
+      <a class="nav-item" data-tab="reviews">
+        🔍 Human Review Queue <span class="nav-badge" style="background:#3b82f6;">2</span>
+      </a>
+    </aside>
+
+    <!-- Main View Content Area -->
+    <main class="content-area">
+
+      <!-- TAB 1: DASHBOARD OVERVIEW -->
+      <section id="tab-dashboard" class="tab-content">
+        <h2 style="font-size: 24px; color: #fff; margin-bottom: 16px;">Telemetry Overview & Live Status</h2>
+
+        <!-- Stat Cards Grid -->
+        <div class="grid-stats">
+          <div class="glass-panel stat-card">
+            <div class="stat-label">Identified Tigers</div>
+            <div class="stat-value">54</div>
+            <span style="font-size: 11px; color: #34d399;">+3 cataloged this month</span>
+          </div>
+          <div class="glass-panel stat-card alert-card">
+            <div class="stat-label">Village Proximity Alerts</div>
+            <div class="stat-value" style="color: #f87171;">2</div>
+            <span style="font-size: 11px; color: #f87171;">Action Required</span>
+          </div>
+          <div class="glass-panel stat-card amber-card">
+            <div class="stat-label">Camera Stations Active</div>
+            <div class="stat-value" style="color: #fbbf24;">48 / 50</div>
+            <span style="font-size: 11px; color: #fbbf24;">2 Low Battery</span>
+          </div>
+          <div class="glass-panel stat-card">
+            <div class="stat-label">AI Identification Rate</div>
+            <div class="stat-value">98.4%</div>
+            <span style="font-size: 11px; color: #34d399;">Stripe Pattern Match</span>
+          </div>
+        </div>
+
+        <!-- Live Alerts List -->
+        <div class="glass-panel" style="padding: 20px; margin-bottom: 24px;">
+          <h3 style="color: #fff; font-size: 18px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+            🚨 Active Village Proximity Alarms & Human-Tiger Conflict Prevention
+          </h3>
+          <div id="dashboard-alerts-list"></div>
+        </div>
+
+        <!-- System Summary Section -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px;">
+          <div class="glass-panel" style="padding: 20px;">
+            <h3 style="color: #fff; font-size: 16px; margin-bottom: 12px;">Quick Operations</h3>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <button class="btn btn-primary" style="justify-content: center;" onclick="openUploadModal()">Upload Camera Trap SD Card Image</button>
+              <button class="btn btn-outline" style="justify-content: center;" onclick="triggerSiren('Choti Tara (T-108)')">Test Village Warning Siren</button>
+              <button class="btn btn-outline" style="justify-content: center;" onclick="openAiAssistant()">Query Maya AI Intelligence</button>
+            </div>
+          </div>
+          <div class="glass-panel" style="padding: 20px;">
+            <h3 style="color: #fff; font-size: 16px; margin-bottom: 12px;">Reserve Weather & Microclimate</h3>
+            <div style="font-size: 13px; color: #cbd5e1; display: flex; flex-direction: column; gap: 6px;">
+              <span>🌡️ Temperature: 28°C (Humidity 65%)</span>
+              <span>💨 Wind: 8 km/h NW</span>
+              <span>🌧️ Rainfall 24h: 4.2 mm</span>
+              <span>🌙 Moon Phase: Waxing Gibbous (Optimal Night Trapping)</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: CAMERA TRAP CAPTURES -->
+      <section id="tab-captures" class="tab-content" style="display: none;">
+        <h2 style="font-size: 24px; color: #fff; margin-bottom: 16px;">Camera Trap Sightings Log</h2>
+        <div class="image-grid" id="captures-grid"></div>
+      </section>
+
+      <!-- TAB 3: TIGER DATABASE -->
+      <section id="tab-tigers" class="tab-content" style="display: none;">
+        <h2 style="font-size: 24px; color: #fff; margin-bottom: 16px;">Biometric Stripe Database (Tigers Catalog)</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;" id="tigers-grid"></div>
+      </section>
+
+      <!-- TAB 4: OCCUPANCY ANALYTICS -->
+      <section id="tab-occupancy" class="tab-content" style="display: none;">
+        <h2 style="font-size: 24px; color: #fff; margin-bottom: 16px;">Spatial Occupancy & Density Analytics</h2>
+        <div class="glass-panel" style="padding: 24px;">
+          <h3 style="color: #fff; font-size: 18px; margin-bottom: 12px;">Statistical Occupancy Rate ($\Psi$) across Pench Zones</h3>
+          <p style="color: #94a3b8; font-size: 14px; margin-bottom: 20px;">Mackenzie-Royle Multi-Season Camera Trap Occupancy Model estimation.</p>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+            <div style="padding: 16px; background: rgba(0,0,0,0.4); border-radius: 8px;">
+              <span style="font-size: 12px; color: #94a3b8;">Sillari Core</span>
+              <h4 style="font-size: 24px; color: #34d399; margin-top: 4px;">0.84 $\Psi$</h4>
+            </div>
+            <div style="padding: 16px; background: rgba(0,0,0,0.4); border-radius: 8px;">
+              <span style="font-size: 12px; color: #94a3b8;">Khawasa Buffer</span>
+              <h4 style="font-size: 24px; color: #fbbf24; margin-top: 4px;">0.62 $\Psi$</h4>
+            </div>
+            <div style="padding: 16px; background: rgba(0,0,0,0.4); border-radius: 8px;">
+              <span style="font-size: 12px; color: #94a3b8;">Karmajhiri Sector</span>
+              <h4 style="font-size: 24px; color: #34d399; margin-top: 4px;">0.78 $\Psi$</h4>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 5: DEVIATION ALERTS -->
+      <section id="tab-deviation" class="tab-content" style="display: none;">
+        <h2 style="font-size: 24px; color: #fff; margin-bottom: 16px;">Territorial Movement Deviation Detection</h2>
+        <div class="glass-panel" style="padding: 20px;">
+          <h3 style="color: #f87171; font-size: 18px; margin-bottom: 12px;">⚠️ Anomalous Movement Vector Alert</h3>
+          <p style="color: #cbd5e1; font-size: 14px;">Tiger <strong>T-108 (Choti Tara)</strong> has crossed outside her historical home range kernel polygon into agricultural corridors.</p>
+        </div>
+      </section>
+
+      <!-- TAB 6: GIS MOVEMENT MAP -->
+      <section id="tab-map" class="tab-content" style="display: none;">
+        <h2 style="font-size: 24px; color: #fff; margin-bottom: 16px;">Live Interactive GIS Telemetry Map</h2>
+        <div class="glass-panel" style="padding: 12px;">
+          <div id="leaflet-map-element" style="width: 100%; height: 500px; border-radius: 8px;"></div>
+        </div>
+      </section>
+
+      <!-- TAB 7: ALERTS & INCIDENTS -->
+      <section id="tab-alerts" class="tab-content" style="display: none;">
+        <h2 style="font-size: 24px; color: #fff; margin-bottom: 16px;">Incidents & Conflict Alerts Master Table</h2>
+        <div class="glass-panel" style="padding: 16px; overflow-x: auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Alert ID</th>
+                <th>Tiger Name</th>
+                <th>Risk Level</th>
+                <th>Proximity Zone</th>
+                <th>Status</th>
+                <th>Detected</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="alerts-table-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- TAB 8: REPORTS & EXPORTS -->
+      <section id="tab-reports" class="tab-content" style="display: none;">
+        <h2 style="font-size: 24px; color: #fff; margin-bottom: 16px;">Reports & Excel / PDF Exports</h2>
+        <div class="glass-panel" style="padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+          <div>
+            <h3 style="color: #fff; font-size: 18px;">Download Master Tiger Database (.xlsx)</h3>
+            <p style="font-size: 13px; color: #94a3b8; margin-top: 4px;">Complete Excel export of all 54 cataloged tigers, stripe signatures, and sighting histories.</p>
+            <button class="btn btn-primary" style="margin-top: 10px;" onclick="alert('Exporting Tiger Master Database Excel Spreadsheet...')">Download Master Excel Sheet</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 9: HUMAN REVIEW QUEUE -->
+      <section id="tab-reviews" class="tab-content" style="display: none;">
+        <h2 style="font-size: 24px; color: #fff; margin-bottom: 16px;">AI Low-Confidence Human Verification Queue</h2>
+        <div id="review-queue-container"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Floating Orange AI Identification Button -->
+  <button class="floating-ai-btn" onclick="openUploadModal()">
+    <span>🐅</span> Identify Camera Trap Image
+  </button>
+
+  <!-- Script JS -->
+  <script src="script.js"></script>
+</body>
+</html>
