@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #0c140d;
+    color: #1e293b;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+.forest-canvas-bg {
+  position: relative;
+  background-color: #0c140d;
+  background-image: 
+    linear-gradient(to bottom, rgba(13, 27, 18, 0.55), rgba(15, 23, 42, 0.70)),
+    url('/forest_bg.jpg');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Clean Canvas Background */
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.1);
+}
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #16a34a;
+}
+
+/* Glass & Card Panels */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.08);
+}
+
+.glass-panel-hover {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.glass-panel-hover:hover {
+  border-color: #10b981;
+  box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.15);
+}
+
+/* Leaflet Map Container & Strict Z-Index Isolation Fix */
+.leaflet-container {
+  isolation: isolate !important;
+  z-index: 1 !important;
+  background-color: #e2e8f0 !important;
+  font-family: 'Inter', sans-serif !important;
+  border-radius: 1rem;
+}
+
+.leaflet-pane {
+  z-index: 10 !important;
+}
+
+.leaflet-tile-pane {
+  z-index: 2 !important;
+}
+
+.leaflet-shadow-pane {
+  z-index: 3 !important;
+}
+
+.leaflet-overlay-pane {
+  z-index: 4 !important;
+}
+
+.leaflet-marker-pane {
+  z-index: 6 !important;
+}
+
+.leaflet-tooltip-pane {
+  z-index: 7 !important;
+}
+
+.leaflet-popup-pane {
+  z-index: 8 !important;
+}
+
+.leaflet-top,
+.leaflet-bottom,
+.leaflet-control-container,
+.leaflet-control {
+  z-index: 9 !important;
+}
+
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+  background: #ffffff !important;
+  color: #1e293b !important;
+  border: 1px solid #16a34a !important;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1) !important;
+}
+
+/* Forest Micro-Animations */
+@keyframes fogSlide {
+  0% { transform: translateX(-5%) translateY(0); opacity: 0.25; }
+  50% { transform: translateX(5%) translateY(-15px); opacity: 0.45; }
+  100% { transform: translateX(-5%) translateY(0); opacity: 0.25; }
+}
+
+@keyframes leafFall {
+  0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
+  20% { opacity: 0.8; }
+  80% { opacity: 0.8; }
+  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+.animate-fog-slide {
+  animation: fogSlide 24s ease-in-out infinite;
+}
+
+.animate-leaf-fall-1 {
+  animation: leafFall 14s linear infinite;
+}
+
+.animate-leaf-fall-2 {
+  animation: leafFall 18s linear infinite 4s;
+}
+
+.animate-leaf-fall-3 {
+  animation: leafFall 16s linear infinite 8s;
+}

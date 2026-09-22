@@ -1,0 +1,13 @@
+{
+  "name": "pench-rakshak",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pench Rakshak - Pench Tiger Reserve Command & Camera Trap Monitoring System",
+  "scripts": {
+    "dev": "npm --prefix client run dev",
+    "dev:client": "npm --prefix client run dev",
+    "dev:server": "npm --prefix server run dev",
+    "install:all": "npm --prefix server install && npm --prefix client install",
+    "start": "npm --prefix server start"
+  }
+}
